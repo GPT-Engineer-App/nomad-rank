@@ -33,7 +33,7 @@ const Index = () => {
         <Flex bg="teal.500" p={4} color="white" alignItems="center">
           <Heading size="md">NomadRank</Heading>
           <Spacer />
-          <Input placeholder="Search cities..." w="200px" bg="white" color="gray.800" _placeholder={{ color: "gray.500" }} onChange={(e) => setSearchTerm(e.target.value)} icon={<FaSearch />} />
+          <Input placeholder="Search cities..." w="200px" bg="white" color="gray.800" _placeholder={{ color: "gray.500" }} onChange={(e) => setSearchTerm(e.target.value)} />
         </Flex>
 
         <VStack spacing={8} align="stretch" p={8}>
