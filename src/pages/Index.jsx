@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Box, Container, Flex, Heading, Input, SimpleGrid, Text, VStack, Image, Spacer, ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, Input, SimpleGrid, Text, VStack, Image, Spacer, ChakraProvider, extendTheme, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, useDisclosure } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 
 const theme = extendTheme({
@@ -15,6 +15,8 @@ const theme = extendTheme({
 const Index = () => {
   const [cities, setCities] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCity, setSelectedCity] = useState(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     fetch("https://sheetdb.io/api/v1/o88mcqdvgzk1f")
@@ -44,7 +46,20 @@ const Index = () => {
           <Container maxW="container.xl">
             <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4}>
               {filteredCities.map((city) => (
-                <Box key={city.id} p={5} shadow="md" borderWidth="1px" borderRadius="md" bg="white" overflow="hidden">
+                <Box
+                  key={city.id}
+                  p={5}
+                  shadow="md"
+                  borderWidth="1px"
+                  borderRadius="md"
+                  bg="white"
+                  overflow="hidden"
+                  cursor="pointer"
+                  onClick={() => {
+                    setSelectedCity(city);
+                    onOpen();
+                  }}
+                >
                   <Image src={`https://source.unsplash.com/random/?${city.city}`} alt={`Image of ${city.city}`} height="200px" width="100%" objectFit="cover" />
                   <Heading fontSize="xl">{city.city}</Heading>
                   <Text mt={4}>{city.country}</Text>
@@ -54,6 +69,20 @@ const Index = () => {
           </Container>
         </VStack>
       </Box>
+      {selectedCity && (
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>
+              {selectedCity.city}, {selectedCity.country}
+            </ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Image src={`https://source.unsplash.com/random/?${selectedCity.city}`} alt={`Image of ${selectedCity.city}`} height="300px" width="100%" objectFit="cover" />
+            </ModalBody>
+          </ModalContent>
+        </Modal>
+      )}
     </ChakraProvider>
   );
 };
