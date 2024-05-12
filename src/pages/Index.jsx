@@ -44,7 +44,8 @@ const Index = () => {
           <Container maxW="container.xl">
             <SimpleGrid columns={{ base: 1, md: 3 }} spacing={4}>
               {filteredCities.map((city) => (
-                <Box key={city.id} p={5} shadow="md" borderWidth="1px" borderRadius="md" bg="white">
+                <Box key={city.id} p={5} shadow="md" borderWidth="1px" borderRadius="md" bg="white" overflow="hidden">
+                  <Image src={`https://source.unsplash.com/random/?${city.city}`} alt={`Image of ${city.city}`} height="200px" width="100%" objectFit="cover" />
                   <Heading fontSize="xl">{city.city}</Heading>
                   <Text mt={4}>{city.country}</Text>
                 </Box>
