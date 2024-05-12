@@ -79,6 +79,12 @@ const Index = () => {
             <ModalCloseButton />
             <ModalBody>
               <Image src={`https://source.unsplash.com/random/?${selectedCity.city}`} alt={`Image of ${selectedCity.city}`} height="300px" width="100%" objectFit="cover" />
+              <Text mt={4} fontSize="lg">
+                {selectedCity.description}
+              </Text>
+              <Text mt={2} fontSize="md">
+                Population: {selectedCity.population}
+              </Text>
             </ModalBody>
           </ModalContent>
         </Modal>
